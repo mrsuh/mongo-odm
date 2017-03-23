@@ -15,6 +15,11 @@ class DataMapper
     const MONGO_ID = '_id';
     const ID       = 'id';
 
+    /**
+     * DataMapper constructor.
+     * @param DBAL $dbal
+     * @param      $class
+     */
     public function __construct(DBAL $dbal, $class)
     {
         $this->dbal       = $dbal;
@@ -23,6 +28,10 @@ class DataMapper
         $this->table_name = mb_strtolower($this->camelCaseToSnake(array_pop($path)));
     }
 
+    /**
+     * @param Document $obj
+     * @return mixed
+     */
     public function insert(Document $obj)
     {
         $data = $this->objToArray($obj);
@@ -36,6 +45,10 @@ class DataMapper
         return $obj->setId($result->getInsertedId());
     }
 
+    /**
+     * @param Document $obj
+     * @return Document
+     */
     public function update(Document $obj)
     {
         $data = $this->objToArray($obj);
@@ -46,16 +59,28 @@ class DataMapper
         return $obj;
     }
 
+    /**
+     * @param Document $obj
+     * @return mixed
+     */
     public function delete(Document $obj)
     {
         return $this->dbal->delete($this->table_name, [self::MONGO_ID => $obj->getId()]);
     }
 
+    /**
+     * @return mixed
+     */
     public function drop()
     {
         return $this->dbal->drop($this->table_name);
     }
 
+    /**
+     * @param array $filter
+     * @param array $options
+     * @return Document[]|array
+     */
     public function find(array $filter = [], array $options = [])
     {
         if (array_key_exists(self::ID, $filter)) {
@@ -71,6 +96,11 @@ class DataMapper
         return $result;
     }
 
+    /**
+     * @param array $filter
+     * @param array $options
+     * @return Document|null
+     */
     public function findOne(array $filter = [], array $options = [])
     {
         if (array_key_exists(self::ID, $filter)) {
@@ -83,6 +113,11 @@ class DataMapper
         return empty($data) ? null : $this->mapObj(new $this->class, $data);
     }
 
+    /**
+     * @param $obj
+     * @param $data
+     * @return mixed
+     */
     private function mapObj($obj, $data)
     {
         $methods = get_class_methods(get_class($obj));
@@ -99,7 +134,7 @@ class DataMapper
 
             $setter = 'set' . $this->snakeToCamelCase($field_name);
 
-            if (!in_array($setter, $methods)) {
+            if (!in_array($setter, $methods, true)) {
                 continue;
             }
 
@@ -109,6 +144,10 @@ class DataMapper
         return $obj;
     }
 
+    /**
+     * @param $input
+     * @return string
+     */
     private function snakeToCamelCase($input)
     {
         $new = [];
@@ -119,6 +158,10 @@ class DataMapper
         return implode('', $new);
     }
 
+    /**
+     * @param $input
+     * @return string
+     */
     private function camelCaseToSnake($input)
     {
         preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $input, $matches);
@@ -130,6 +173,10 @@ class DataMapper
         return implode('_', $res);
     }
 
+    /**
+     * @param $obj
+     * @return array
+     */
     public function objToArray($obj)
     {
         $data    = [];
