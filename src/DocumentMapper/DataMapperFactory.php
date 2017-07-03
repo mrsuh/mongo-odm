@@ -8,13 +8,21 @@ class DataMapperFactory
 {
     private $dbal;
 
+    /**
+     * DataMapperFactory constructor.
+     * @param DBAL $dbal
+     */
     public function __construct(DBAL $dbal)
     {
         $this->dbal = $dbal;
     }
 
-    public function init($class)
+    /**
+     * @param $class_name
+     * @return DataMapper
+     */
+    public function init($class_name)
     {
-        return new DataMapper($this->dbal, $class);
+        return new DataMapper($this->dbal, $class_name);
     }
 }
