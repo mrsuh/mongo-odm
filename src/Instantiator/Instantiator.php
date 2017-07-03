@@ -4,9 +4,6 @@ namespace ODM\Instantiator;
 
 class Instantiator
 {
-    const SERIALIZATION_FORMAT_USE_UNSERIALIZER   = 'C';
-    const SERIALIZATION_FORMAT_AVOID_UNSERIALIZER = 'O';
-
     /**
      * @param string $class_name
      * @return mixed
