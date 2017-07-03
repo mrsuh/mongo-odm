@@ -4,25 +4,24 @@ namespace ODM\Document;
 
 class Document
 {
-   private $id;
+    private $id;
 
     /**
      * @return mixed
      */
     public function getId()
     {
-        return $this->id;
+        return (string)$this->id;
     }
 
     /**
      * @param $id
      * @return $this
      */
-    public function setId($id)
+    public function setId(string $id)
     {
         $this->id = $id;
 
         return $this;
     }
-
 }

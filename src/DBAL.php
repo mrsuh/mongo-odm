@@ -8,79 +8,85 @@ class DBAL
 {
     private $db;
 
-    public function __construct($host, $port, $db_name)
+    /**
+     * DBAL constructor.
+     * @param string $host
+     * @param string $port
+     * @param string $db_name
+     */
+    public function __construct(string $host, string $port, string $db_name)
     {
         $this->db = (new Client("mongodb://$host:$port"))->$db_name;
     }
 
     /**
-     * @param       $table_name
-     * @param array $data
-     * @return mixed
+     * @param string $table_name
+     * @param array  $data
+     * @return \MongoDB\InsertOneResult
      */
-    public function insert($table_name, array $data)
+    public function insert(string $table_name, array $data)
     {
         return $this->db->$table_name->insertOne($data);
     }
 
     /**
-     * @param       $table_name
-     * @param array $data
-     * @return mixed
+     * @param string $table_name
+     * @param array  $data
+     * @return \MongoDB\InsertManyResult
      */
-    public function insertMany($table_name, array $data)
+    public function insertMany(string $table_name, array $data)
     {
         return $this->db->$table_name->insertMany($data);
     }
 
     /**
-     * @param       $table_name
-     * @param array $filter
-     * @param array $data
-     * @return mixed
+     * @param string $table_name
+     * @param array  $filter
+     * @param array  $data
+     * @return \MongoDB\UpdateResult
      */
-    public function update($table_name, array $filter, array $data)
+    public function update(string $table_name, array $filter, array $data)
     {
         return $this->db->$table_name->updateOne($filter, ['$set' => $data]);
     }
 
     /**
-     * @param       $table_name
-     * @param array $filter
-     * @return mixed
+     * @param string $table_name
+     * @param array  $filter
+     * @return \MongoDB\DeleteResult
      */
-    public function delete($table_name, array $filter)
+    public function delete(string $table_name, array $filter)
     {
         return $this->db->$table_name->deleteOne($filter);
     }
 
     /**
-     * @param       $table_name
-     * @param array $filter
-     * @param array $options
-     * @return mixed
+     * @param string $table_name
+     * @param array  $filter
+     * @param array  $options
+     * @return \MongoDB\Driver\Cursor
      */
-    public function find($table_name, array $filter, array $options = [])
+    public function find(string $table_name, array $filter, array $options = [])
     {
         return $this->db->$table_name->find($filter, $options);
     }
 
     /**
-     * @param       $table_name
-     * @param array $filter
-     * @param array $options
-     * @return mixed
+     * @param string $table_name
+     * @param array  $filter
+     * @param array  $options
+     * @return array|null|object
      */
-    public function findOne($table_name, array $filter, array $options = [])
+    public function findOne(string $table_name, array $filter, array $options = [])
     {
         return $this->db->$table_name->findOne($filter, $options);
     }
 
     /**
-     * @param $table_name
-     * @return mixed
+     * @param string $table_name
+     * @return array|object
      */
-    public function drop($table_name)
+    public function drop(string $table_name)
     {
         return $this->db->$table_name->drop();
     }

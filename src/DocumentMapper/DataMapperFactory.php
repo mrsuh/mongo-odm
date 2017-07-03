@@ -18,11 +18,11 @@ class DataMapperFactory
     }
 
     /**
-     * @param $class
+     * @param $class_name
      * @return DataMapper
      */
-    public function init($class)
+    public function init($class_name)
     {
-        return new DataMapper($this->dbal, $class);
+        return new DataMapper($this->dbal, $class_name);
     }
 }

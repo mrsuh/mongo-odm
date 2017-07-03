@@ -41,7 +41,7 @@ class Note extends ODM\Document\Document
 }
 
 /* Initialize connection */
-$dbal = new ODM\DBAL('127.0.0.1', '27017', 'test2');
+$dbal = new ODM\DBAL('127.0.0.1', '27017', 'test');
 $factory = new ODM\DocumentMapper\DataMapperFactory($dbal);
 
 /* Initialize DataMapper for your Document */
