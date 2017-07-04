@@ -133,7 +133,8 @@ class DataMapper
     {
         $obj     = $this->instantiator->instantiate($class_name);
         $reflect = new \ReflectionClass($obj);
-        $properties = array_merge($reflect->getProperties(), $reflect->getParentClass()->getProperties());
+        $parent_properties = null !== $reflect->getParentClass() ? $reflect->getParentClass()->getProperties() : [];
+        $properties = array_merge($reflect->getProperties(), $parent_properties);
 
         foreach($properties  as $prop) {
 
@@ -186,7 +187,8 @@ class DataMapper
     {
         $data    = [];
         $reflect = new \ReflectionClass($obj);
-        $properties = array_merge($reflect->getProperties(), $reflect->getParentClass()->getProperties());
+        $parent_properties = null !== $reflect->getParentClass() ? $reflect->getParentClass()->getProperties() : [];
+        $properties = array_merge($reflect->getProperties(), $parent_properties);
 
         foreach ($properties as $prop) {
 
