@@ -4,6 +4,9 @@ namespace ODM\Document;
 
 class Document
 {
+    /**
+     * @ODM\Mapping\Annotator\Field(name="_id", type="string")
+     */
     private $id;
 
     /**
@@ -11,7 +14,7 @@ class Document
      */
     public function getId()
     {
-        return (string)$this->id;
+        return $this->id;
     }
 
     /**
@@ -20,7 +23,7 @@ class Document
      */
     public function setId($id)
     {
-        $this->id = (string)$id;
+        $this->id = $id;
 
         return $this;
     }
