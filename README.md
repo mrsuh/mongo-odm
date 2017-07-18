@@ -20,16 +20,16 @@ composer require mrsuh/mongo-odm:1.*
 ```php
 <?php
 
+require 'vendor/autoload.php';
+
 use ODM\DBAL;
 use ODM\Document\Document;
 use ODM\DocumentMapper\DocumentManagerFactory;
 
-require 'vendor/autoload.php';
-
 /**
  * @ODM\Mapping\Annotator\Collection(name="alphabet")
  */
-class Alphabet extends Document{
+class Alphabet extends Document {
 
     /**
      * @ODM\Mapping\Annotator\Field(name="language", type="string")
