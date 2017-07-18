@@ -20,71 +20,120 @@ composer require mrsuh/mongo-odm:1.*
 ```php
 <?php
 
+use ODM\DBAL;
+use ODM\Document\Document;
+use ODM\DocumentMapper\DocumentManagerFactory;
+
 require 'vendor/autoload.php';
 
-/* Create Document Class */
-class Note extends ODM\Document\Document
-{
-    private $field;
+/**
+ * @ODM\Mapping\Annotator\Collection(name="alphabet")
+ */
+class Alphabet extends Document{
 
-    public function getField()
+    /**
+     * @ODM\Mapping\Annotator\Field(name="language", type="string")
+     */
+    private $language;
+
+    /**
+     * @ODM\Mapping\Annotator\Field(name="words", type="Tests\Word[]")
+     */
+    private $words;
+
+    /**
+     * Alphabet constructor.
+     */
+    public function __construct()
     {
-        return $this->field;
+        $this->words = [];
     }
 
-    public function setField($field)
+    /**
+     * @return string
+     */
+    public function getLanguage()
     {
-        $this->field = $field;
+        return $this->language;
+    }
+
+    /**
+     * @param string $language
+     * @return $this
+     */
+    public function setLanguage(string $language)
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    /**
+     * @return Word[]
+     */
+    public function getWords()
+    {
+        return $this->words;
+    }
+
+    /**
+     * @param Word $word
+     * @return $this
+     */
+    public function addWord(Word $word)
+    {
+        $this->words[] = $word;
 
         return $this;
     }
 }
 
-/* Initialize connection */
-$dbal = new ODM\DBAL('127.0.0.1', '27017', 'test');
-$factory = new ODM\DocumentMapper\DataMapperFactory($dbal);
+class Word {
 
-/* Initialize DataMapper for your Document */
-$mapper = $factory->init(Note::class);
+    /**
+     * @ODM\Mapping\Annotator\Field(name="name", type="string")
+     */
+    private $name;
 
-/* Use your data mapper */
-$note = new Note();
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
-$note->setField('My text');
+    /**
+     * @param string $name
+     * @return $this
+     */
+    public function setName(string $name)
+    {
+        $this->name = $name;
 
-$mapper->insert($note);
-
-$note_find = $mapper->findOne(['id' => $note->getId()]);
-
-var_dump($note_find->getField());
-/* string(7) "My text" */
-
-$note->setField([1,2,3,4,5]);
-
-$mapper->update($note);
-
-$note_find = $mapper->findOne(['id' => $note->getId()]);
-
-var_dump($note_find->getField());
-/*
-array(5) {
-    [0]=>
-  int(1)
-  [1]=>
-  int(2)
-  [2]=>
-  int(3)
-  [3]=>
-  int(4)
-  [4]=>
-  int(5)
+        return $this;
+    }
 }
-*/
 
-$mapper->find();
+$dbal = new DBAL('127.0.0.1', 27017, 'test');
+$dm_alphabet = (new DocumentManagerFactory($dbal))->init(Alphabet::class);
 
-$mapper->delete($note);
+$alphabet = new Alphabet();
+$alphabet->setLanguage('English');
+foreach(['a', 'b', 'c'] as $word_name) {
+    $word = new Word();
+    $word->setName($word_name);
 
-$mapper->drop();
+    $alphabet->addWord($word);
+}
+
+$dm_alphabet->insert($alphabet);
+
+$alphabet_from_db = $dm_alphabet->findOne(['_id' => $alphabet->getId()]);
+
+echo $alphabet_from_db->getLanguage() . ' alphabet words: ' . PHP_EOL;
+foreach($alphabet_from_db->getWords() as $word) {
+    echo 'word ' . $word->getName() . PHP_EOL;
+}
 
 ```

@@ -1,6 +1,6 @@
 <?php
 
-namespace ODM\Instantiator;
+namespace ODM\Mapping\Instantiator;
 
 class Instantiator
 {
@@ -8,7 +8,7 @@ class Instantiator
      * @param string $class_name
      * @return mixed
      */
-    public function instantiate(string $class_name)
+    public function getInstance(string $class_name)
     {
         $serialized_string = sprintf(
             'O:%d:"%s":0:{}',
