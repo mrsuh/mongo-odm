@@ -12,7 +12,7 @@ Simple Mongo ODM library.
 Add package to your require section in the composer.json file.
 
 ```bash
-composer require mrsuh/mongo-odm:1.*
+composer require mrsuh/mongo-odm:2.*
 ```
 
 ## Usage ##
