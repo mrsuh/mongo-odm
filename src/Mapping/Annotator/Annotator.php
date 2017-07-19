@@ -38,7 +38,7 @@ class Annotator
         $this->parseCollection($metadata->getReflectionClass());
 
         foreach($metadata->getReflectionProperties() as $property) {
-            $this->parseFields($property);
+            $this->parseField($property);
         }
     }
 
@@ -48,7 +48,7 @@ class Annotator
      */
     private function parseCollection(\ReflectionClass $reflection_class)
     {
-        $pattern = '/@' . preg_quote(Collection::class) . '\((.*)\)/';
+        $pattern = '/@Collection\((.*)\)/';
         preg_match($pattern, $reflection_class->getDocComment(), $matches);
 
         $doc = array_key_exists(1, $matches) ? $matches[1] : '';
@@ -64,9 +64,9 @@ class Annotator
      * @param \ReflectionProperty $reflection_property
      * @return bool
      */
-    private function parseFields(\ReflectionProperty $reflection_property)
+    private function parseField(\ReflectionProperty $reflection_property)
     {
-        $pattern = '/@' . preg_quote(Field::class) . '\((.*)\)/';
+        $pattern = '/@Field\((.*)\)/';
         preg_match($pattern, $reflection_property->getDocComment(), $matches);
 
         $doc = array_key_exists(1, $matches) ? $matches[1] : '';

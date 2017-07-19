@@ -12,7 +12,7 @@ Simple Mongo ODM library.
 Add package to your require section in the composer.json file.
 
 ```bash
-composer require mrsuh/mongo-odm:1.*
+composer require mrsuh/mongo-odm:2.*
 ```
 
 ## Usage ##
@@ -24,20 +24,20 @@ require 'vendor/autoload.php';
 
 use ODM\DBAL;
 use ODM\Document\Document;
-use ODM\DocumentMapper\DocumentManagerFactory;
+use ODM\DocumentManager\DocumentManagerFactory;
 
 /**
- * @ODM\Mapping\Annotator\Collection(name="alphabet")
+ * @Collection(name="alphabet")
  */
 class Alphabet extends Document {
 
     /**
-     * @ODM\Mapping\Annotator\Field(name="language", type="string")
+     * @Field(name="language", type="string")
      */
     private $language;
 
     /**
-     * @ODM\Mapping\Annotator\Field(name="words", type="Tests\Word[]")
+     * @Field(name="words", type="Tests\Word[]")
      */
     private $words;
 
@@ -91,7 +91,7 @@ class Alphabet extends Document {
 class Word {
 
     /**
-     * @ODM\Mapping\Annotator\Field(name="name", type="string")
+     * @Field(name="name", type="string")
      */
     private $name;
 

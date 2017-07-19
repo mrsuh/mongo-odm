@@ -1,6 +1,6 @@
 <?php
 
-namespace ODM\DocumentMapper;
+namespace ODM\DocumentManager;
 
 use ODM\DBAL;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace ODM\DocumentMapper;
+namespace ODM\DocumentManager;
 
 use ODM\Document\Document;
-use ODM\Exception\MapperException;
+use ODM\Exception\MappingException;
 use ODM\Mapping\DataMapper;
 use ODM\DBAL;
 use ODM\Mapping\DataMapperFactory;
@@ -30,7 +30,7 @@ class DocumentManager
      * DocumentManager constructor.
      * @param DBAL   $dbal
      * @param string $class_name
-     * @throws MapperException
+     * @throws MappingException
      */
     public function __construct(DBAL $dbal, string $class_name)
     {
@@ -41,7 +41,7 @@ class DocumentManager
 
         if (!$this->mapper->getAnnotator()->isCollection()) {
 
-            throw new MapperException('There is no collection name for class ' . $class_name);
+            throw new MappingException('There is no collection name for class ' . $class_name);
         }
     }
 

@@ -5,9 +5,9 @@ namespace ODM\Document;
 class Document
 {
     /**
-     * @ODM\Mapping\Annotator\Field(name="_id", type="string")
+     * @Field(name="_id", type="string")
      */
-    private $id;
+    protected $id;
 
     /**
      * @return mixed

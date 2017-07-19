@@ -2,7 +2,7 @@
 
 namespace ODM\Mapping;
 
-use ODM\Exception\MapperException;
+use ODM\Exception\MappingException;
 use ODM\Mapping\Annotator\Annotator;
 use ODM\Mapping\Annotator\AnnotatorFactory;
 use ODM\Mapping\Instantiator\Instantiator;
@@ -132,11 +132,14 @@ class DataMapper
      * @param        $value
      * @param int    $to
      * @return array|float|int|string|mixed
-     * @throws MapperException
+     * @throws MappingException
      */
     private function typeCast(string $type, $value, int $to)
     {
         switch ($type) {
+            case 'bool':
+                $value = (bool)$value;
+                break;
             case 'integer':
                 $value = (integer)$value;
                 break;
@@ -180,7 +183,7 @@ class DataMapper
 
                     if (!class_exists($class_name)) {
 
-                        throw new MapperException('Class not exists ' . $class_name);
+                        throw new MappingException('Class not exists ' . $class_name);
                     }
 
                     if (!is_array($value)) {
@@ -207,7 +210,7 @@ class DataMapper
 
                     if (!class_exists($class_name)) {
 
-                        throw new MapperException('Class not exists ' . $class_name);
+                        throw new MappingException('Class not exists ' . $class_name);
                     }
 
                     $mapper = DataMapperFactory::getInstance()->get($class_name);
@@ -221,7 +224,7 @@ class DataMapper
                     break;
                 }
 
-                throw new MapperException('Invalid type ' . $type);
+                throw new MappingException('Invalid type ' . $type);
         }
 
         return $value;
