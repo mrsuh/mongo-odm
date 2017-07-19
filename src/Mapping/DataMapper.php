@@ -137,6 +137,9 @@ class DataMapper
     private function typeCast(string $type, $value, int $to)
     {
         switch ($type) {
+            case 'bool':
+                $value = (bool)$value;
+                break;
             case 'integer':
                 $value = (integer)$value;
                 break;
