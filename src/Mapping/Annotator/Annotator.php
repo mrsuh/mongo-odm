@@ -48,7 +48,7 @@ class Annotator
      */
     private function parseCollection(\ReflectionClass $reflection_class)
     {
-        $pattern = '/@Collection\((.*)\)/';
+        $pattern = '/@'.preg_quote('ODM\Collection').'\((.*)\)/';
         preg_match($pattern, $reflection_class->getDocComment(), $matches);
 
         $doc = array_key_exists(1, $matches) ? $matches[1] : '';
@@ -66,7 +66,7 @@ class Annotator
      */
     private function parseField(\ReflectionProperty $reflection_property)
     {
-        $pattern = '/@Field\((.*)\)/';
+        $pattern = '/@'.preg_quote('ODM\Field').'\((.*)\)/';
         preg_match($pattern, $reflection_property->getDocComment(), $matches);
 
         $doc = array_key_exists(1, $matches) ? $matches[1] : '';
