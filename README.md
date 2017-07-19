@@ -27,17 +27,17 @@ use ODM\Document\Document;
 use ODM\DocumentManager\DocumentManagerFactory;
 
 /**
- * @Collection(name="alphabet")
+ * @ODM\Collection(name="alphabet")
  */
 class Alphabet extends Document {
 
     /**
-     * @Field(name="language", type="string")
+     * @ODM\Field(name="language", type="string")
      */
     private $language;
 
     /**
-     * @Field(name="words", type="Tests\Word[]")
+     * @ODM\Field(name="words", type="Tests\Word[]")
      */
     private $words;
 
@@ -91,7 +91,7 @@ class Alphabet extends Document {
 class Word {
 
     /**
-     * @Field(name="name", type="string")
+     * @ODM\Field(name="name", type="string")
      */
     private $name;
 

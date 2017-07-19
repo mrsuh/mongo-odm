@@ -5,7 +5,7 @@ namespace ODM\Document;
 class Document
 {
     /**
-     * @Field(name="_id", type="string")
+     * @ODM\Field(name="_id", type="string")
      */
     protected $id;
 
