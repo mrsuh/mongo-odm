@@ -51,6 +51,10 @@ class DocumentManager
      */
     public function insert(Document $obj)
     {
+        if(empty($obj->getId())) {
+            $obj->setId(str_replace('.', '', uniqid('', true)));
+        }
+
         $result = $this->dbal->insert(
             $this->collection_name,
             $this->mapper->objectToArray($obj)

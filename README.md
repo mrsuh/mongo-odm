@@ -37,7 +37,7 @@ class Alphabet extends Document {
     private $language;
 
     /**
-     * @ODM\Field(name="words", type="Tests\Word[]")
+     * @ODM\Field(name="words", type="Word[]")
      */
     private $words;
 
