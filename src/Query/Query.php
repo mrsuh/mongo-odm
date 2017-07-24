@@ -2,7 +2,7 @@
 
 namespace ODM\Query;
 
-use ODM\DocumentMapper\DocumentManager;
+use ODM\DocumentManager\DocumentManager;
 
 class Query
 {
