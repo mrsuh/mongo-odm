@@ -2,7 +2,6 @@
 
 namespace ODM\DocumentManager;
 
-use MongoDB\BSON\ObjectID;
 use ODM\Document\Document;
 use ODM\Exception\MappingException;
 use ODM\Mapping\DataMapper;
