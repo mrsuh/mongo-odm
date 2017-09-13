@@ -150,5 +150,3 @@ foreach($alphabet_from_db->getWords() as $word) {
 + float[]
 + \Obj
 + \Obj[]
-
-
