@@ -137,3 +137,16 @@ foreach($alphabet_from_db->getWords() as $word) {
 }
 
 ```
+
+## Types
+
++ bool
++ integer
++ string
++ float
++ array
++ integer[]
++ string[]
++ float[]
++ \Obj
++ \Obj[]
